@@ -57,16 +57,6 @@ class Row:
         self._column_set[key] = pair
         return self
 
-    def raw_column(
-        self,
-        key,
-        value,
-    ):
-        pair = KeyValuePair(key)
-        pair.set_raw_value(value)
-        self._column_set[key] = pair
-        return self
-
     def __str__(self):
         symbols = ""
         symbol_set_values = [str(x) for x in self._symbol_set.values()]

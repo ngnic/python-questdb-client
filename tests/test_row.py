@@ -31,23 +31,18 @@ def test_double():
     assert str(instance) == "a double=123.0"
 
 
-def test_raw_column():
-    instance = Row.table("a").raw_column("raw", 123)
-    assert str(instance) == "a raw=123"
-
-
 def test_symbol():
     instance = Row.table("a").symbol("symbol", 123)
     assert str(instance) == "a,symbol=123"
 
 
 def test_at():
-    instance = Row.table("a").raw_column("raw", 123).at(1234)
-    assert str(instance) == "a raw=123 1234"
+    instance = Row.table("a").string_column("raw", 123).at(1234)
+    assert str(instance) == 'a raw="123" 1234'
 
 
 def test_at_now():
-    instance = Row.table("a").raw_column("raw", 123).at_now()
+    instance = Row.table("a").string_column("raw", 123).at_now()
     timestamp = str(instance).split(" ")[2]
     assert timestamp
 
@@ -61,10 +56,9 @@ def test_combined():
         .long_column("long", 123)
         .bool_column("bool", False)
         .double_column("double", 123.0)
-        .raw_column("raw", 123)
         .at(1234)
     )
     assert (
         str(instance)
-        == 'a,symbol=a timestamp=1t,string="1",long=123i,bool=False,double=123.0,raw=123 1234'
+        == 'a,symbol=a timestamp=1t,string="1",long=123i,bool=False,double=123.0 1234'
     )
